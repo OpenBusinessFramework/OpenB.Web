@@ -16,15 +16,14 @@ namespace OpenB.Web.Http.FileHandlers
         }
 
         IObmlContentFactory contentFactory;
-        IWebControlTemplateBinder controlTemplateBinder;
-
-        public ObmlFileHandler(IWebControlTemplateBinder controlTemplateBinder)
+        
+        public ObmlFileHandler(IWebControlTemplateBinder controlTemplateBinder, IWebReferenceService referenceService)
         {
             if (controlTemplateBinder == null)
                 throw new ArgumentNullException(nameof(controlTemplateBinder));
 
-            this.controlTemplateBinder = controlTemplateBinder;
-            this.contentFactory = new ObmlContentFactory(controlTemplateBinder);
+            
+            this.contentFactory = new ObmlContentFactory(controlTemplateBinder, referenceService);
         }
 
         public WebRequestOutput HandleRequest(WebRequestInput requestInput)

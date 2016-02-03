@@ -44,7 +44,8 @@ namespace OpenB.Web.Http
             WebRequestInput webRequestInput = new WebRequestInput()
             {
                 RequestExtension = extension.Replace(".", string.Empty),
-                RequestFileName = filename
+                RequestFileName = filename,
+                Url = context.Request.Url
             };
 
             IWebRequestFactory webRequestFactory = WebSolution.WebPackage.WebRequestFactory;

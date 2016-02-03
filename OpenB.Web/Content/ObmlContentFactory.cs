@@ -12,13 +12,18 @@ namespace OpenB.Web.Content
 {
     class ObmlContentFactory : IObmlContentFactory
     {
-        private IWebControlTemplateBinder controlTemplateBinder;
+        readonly IWebControlTemplateBinder controlTemplateBinder;
+        readonly IWebReferenceService referenceService;
 
-        public ObmlContentFactory(IWebControlTemplateBinder controlTemplateBinder)
+        public ObmlContentFactory(IWebControlTemplateBinder controlTemplateBinder, IWebReferenceService referenceService)
         {
+            if (referenceService == null)
+                throw new ArgumentNullException(nameof(referenceService));
+            
             if (controlTemplateBinder == null)
                 throw new ArgumentNullException(nameof(controlTemplateBinder));
 
+            this.referenceService = referenceService;
             this.controlTemplateBinder = controlTemplateBinder;
         }
 
@@ -29,7 +34,7 @@ namespace OpenB.Web.Content
 
             StringBuilder stringBuilder = new StringBuilder();
             TextWriter textWriter = new StringWriter(stringBuilder);
-            RenderContext renderContext = new RenderContext(new HtmlTextWriter(textWriter));
+            RenderContext renderContext = new RenderContext(new HtmlTextWriter(textWriter), referenceService);
 
             WebRequestOutput output = new WebRequestOutput { ContentType = "text/html" };
 
@@ -40,6 +45,7 @@ namespace OpenB.Web.Content
             try
             {
                 var element = CreateElement(renderContext, currentNode, availableTypes);
+                
                 output.Response = stringBuilder.ToString();              
             }
             catch(ControlNotSupportedExecption cne)

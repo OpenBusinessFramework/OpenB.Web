@@ -8,8 +8,7 @@ namespace OpenB.Web
         IWebControlTemplateBinder ControlTemplateBinder { get; }
         IWebRequestFactory WebRequestFactory { get; }    
         
-        IEnumerable<CascadingStyleSheetReference> CascadingStyleSheetReferences { get; }
-        IEnumerable<JavascriptReference> JavascriptReferences { get; }
+      
 
     }
 }

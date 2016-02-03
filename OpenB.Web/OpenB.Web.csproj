@@ -47,8 +47,10 @@
     <Compile Include="Content\ControlNotSupportedException.cs" />
     <Compile Include="Content\ControlNotSupportedExecption.cs" />
     <Compile Include="Content\Elements\Page.cs" />
+    <Compile Include="Content\IReferenceService.cs" />
     <Compile Include="Content\ObmlContentFactory.cs" />
     <Compile Include="Content\RenderContext.cs" />
+    <Compile Include="Content\WebReferenceService.cs" />
     <Compile Include="Http\Assemlby.cs" />
     <Compile Include="Http\FileHandlers\CssFileHandler.cs" />
     <Compile Include="Http\FileHandlers\FontFileHandler.cs" />

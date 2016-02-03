@@ -1,10 +1,11 @@
 ﻿using OpenB.Web;
+using System.Collections.Generic;
 
 namespace OpenB.WebPackages.BootStrap
 {
     public class BootStrapWebPackage : BaseWebPackage, IWebPackage
     {
-        public BootStrapWebPackage(): base (new BootstrapControlTemplateBinder(), new BootStrapWebRequestFactory())
+        public BootStrapWebPackage(): base (new BootstrapControlTemplateBinder(), new BootStrapWebRequestFactory(new List<IWebReference>() { new JavascriptReference("bootstrap.min.js"), new JavascriptReference("") }))
         {
         }
     }

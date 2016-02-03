@@ -11,12 +11,11 @@ namespace OpenB.Web
     {
         public IWebControlTemplateBinder ControlTemplateBinder { get; private set; }
         public IWebRequestFactory WebRequestFactory { get; private set; }
-
-        public IEnumerable<JavascriptReference> JavascriptReferences { get; private set; }
-        public IEnumerable<CascadingStyleSheetReference> CascadingStyleSheetReferences { get; private set; }
-
+       
+        
         protected BaseWebPackage(IWebControlTemplateBinder controlTemplateBinder , IWebRequestFactory webRequestFactory)
         {
+          
             if (webRequestFactory == null)
                 throw new ArgumentNullException(nameof(webRequestFactory));
             if (controlTemplateBinder == null)
@@ -24,6 +23,7 @@ namespace OpenB.Web
 
             ControlTemplateBinder = controlTemplateBinder;
             WebRequestFactory = webRequestFactory;
+           
         }      
     }
 }

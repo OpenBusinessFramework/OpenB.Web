@@ -19,6 +19,12 @@ namespace OpenB.WebPackages.BootStrap.Templates
         {
             RenderContext.HtmlTextWriter.RenderBeginTag(HtmlTextWriterTag.Html);
             RenderContext.HtmlTextWriter.RenderBeginTag(HtmlTextWriterTag.Head);
+
+            foreach (var referenceLink in RenderContext.ReferenceService.GetLinks(RenderContext.RequestUri.Host))
+            {
+                RenderContext.HtmlTextWriter.Write(referenceLink);
+            }
+
             RenderContext.HtmlTextWriter.RenderEndTag();
             RenderContext.HtmlTextWriter.RenderBeginTag(HtmlTextWriterTag.Body);
             RenderContext.HtmlTextWriter.RenderEndTag();
