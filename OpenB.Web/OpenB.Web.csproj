@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1A088FDA-EE26-41B6-B46A-82EC378504BF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OpenB.Web</RootNamespace>
+    <AssemblyName>OpenB.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseWebPackage.cs" />
+    <Compile Include="CascadingStyleSheetReference.cs" />
+    <Compile Include="Content\ControlNotSupportedError.cs" />
+    <Compile Include="Content\ControlNotSupportedException.cs" />
+    <Compile Include="Content\ControlNotSupportedExecption.cs" />
+    <Compile Include="Content\Elements\Page.cs" />
+    <Compile Include="Content\ObmlContentFactory.cs" />
+    <Compile Include="Content\RenderContext.cs" />
+    <Compile Include="Http\Assemlby.cs" />
+    <Compile Include="Http\FileHandlers\CssFileHandler.cs" />
+    <Compile Include="Http\FileHandlers\FontFileHandler.cs" />
+    <Compile Include="Http\FileHandlers\IconFileHandler.cs" />
+    <Compile Include="Content\IObmlContentFactory.cs" />
+    <Compile Include="Http\GetResponseHandler.cs" />
+    <Compile Include="Http\HttpHandlerFactory.cs" />
+    <Compile Include="Http\IEnumberable.cs" />
+    <Compile Include="Http\IWebRequestFactory.cs" />
+    <Compile Include="Http\IWebRequestFileHandler.cs" />
+    <Compile Include="Http\FileHandlers\JavaScriptFileHandler.cs" />
+    <Compile Include="Http\FileHandlers\ObmlFileHandler.cs" />
+    <Compile Include="Http\WebRequestError.cs" />
+    <Compile Include="Http\WebRequestFactory.cs" />
+    <Compile Include="Http\WebRequestInput.cs" />
+    <Compile Include="Http\WebRequestOutput.cs" />
+    <Compile Include="IControlTemplateBinder.cs" />
+    <Compile Include="IWebControlTemplate.cs" />
+    <Compile Include="IWebPackage.cs" />
+    <Compile Include="IWebSolutionConfiguration.cs" />
+    <Compile Include="JavascriptReference.cs" />
+    <Compile Include="RenderService.cs" />
+    <Compile Include="ResourceNotFoundError.cs" />
+    <Compile Include="WebSolution.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebSolutionFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Templating\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

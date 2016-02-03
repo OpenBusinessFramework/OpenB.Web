@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenB.Web", "OpenB.Web\OpenB.Web.csproj", "{1A088FDA-EE26-41B6-B46A-82EC378504BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenB.Web.Test", "OpenB.Web.Test\OpenB.Web.Test.csproj", "{5B2E112D-51A9-4687-BC5E-BD15ED42CFEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebPackages", "WebPackages", "{9B36244C-E1A3-4C7F-A9AD-54F32ABDA93E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenB.WebPackages.BootStrap", "OpenB.WebPackage.BootStrap\OpenB.WebPackages.BootStrap.csproj", "{6EB74340-5524-4013-99E0-7A27587CB263}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{190300CF-2EBC-4620-BC9B-62721A7E1786}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebPackages", "WebPackages", "{E9472274-655B-404A-98B5-9420D578A660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenB.WebPackages.Bootstrap.Test", "OpenB.WebPackages.Bootstrap\OpenB.WebPackages.Bootstrap.Test.csproj", "{D0F47C23-E572-4459-9EA0-67284023778D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenB.Web.Demo", "OpenB.Web.Demo\OpenB.Web.Demo.csproj", "{5C742870-7369-46CD-ACB6-7A91A3C599C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenB.Core.Configuration", "OpenB.Core.Configuration\OpenB.Core.Configuration.csproj", "{8ACC2B76-C01D-41FE-B59E-97BFD61DDA93}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{5B5A2CC4-6B9C-4402-B458-DC856730F25E}"
+	ProjectSection(SolutionItems) = preProject
+		Readme-Install.html = Readme-Install.html
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A088FDA-EE26-41B6-B46A-82EC378504BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A088FDA-EE26-41B6-B46A-82EC378504BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A088FDA-EE26-41B6-B46A-82EC378504BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A088FDA-EE26-41B6-B46A-82EC378504BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B2E112D-51A9-4687-BC5E-BD15ED42CFEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B2E112D-51A9-4687-BC5E-BD15ED42CFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B2E112D-51A9-4687-BC5E-BD15ED42CFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B2E112D-51A9-4687-BC5E-BD15ED42CFEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EB74340-5524-4013-99E0-7A27587CB263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EB74340-5524-4013-99E0-7A27587CB263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EB74340-5524-4013-99E0-7A27587CB263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EB74340-5524-4013-99E0-7A27587CB263}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0F47C23-E572-4459-9EA0-67284023778D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0F47C23-E572-4459-9EA0-67284023778D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0F47C23-E572-4459-9EA0-67284023778D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0F47C23-E572-4459-9EA0-67284023778D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C742870-7369-46CD-ACB6-7A91A3C599C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C742870-7369-46CD-ACB6-7A91A3C599C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C742870-7369-46CD-ACB6-7A91A3C599C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C742870-7369-46CD-ACB6-7A91A3C599C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ACC2B76-C01D-41FE-B59E-97BFD61DDA93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ACC2B76-C01D-41FE-B59E-97BFD61DDA93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ACC2B76-C01D-41FE-B59E-97BFD61DDA93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ACC2B76-C01D-41FE-B59E-97BFD61DDA93}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5B2E112D-51A9-4687-BC5E-BD15ED42CFEA} = {190300CF-2EBC-4620-BC9B-62721A7E1786}
+		{6EB74340-5524-4013-99E0-7A27587CB263} = {9B36244C-E1A3-4C7F-A9AD-54F32ABDA93E}
+		{E9472274-655B-404A-98B5-9420D578A660} = {190300CF-2EBC-4620-BC9B-62721A7E1786}
+		{D0F47C23-E572-4459-9EA0-67284023778D} = {E9472274-655B-404A-98B5-9420D578A660}
+	EndGlobalSection
+EndGlobal
