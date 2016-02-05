@@ -2,6 +2,7 @@
 using OpenB.Web.Content.Elements;
 using OpenB.Web.Content.Templating;
 using OpenB.Web.Content;
+using System.Web.UI;
 
 namespace OpenB.WebPackages.BootStrap.Templates
 {
@@ -18,7 +19,9 @@ namespace OpenB.WebPackages.BootStrap.Templates
 
         public override void Render()
         {
-            throw new NotImplementedException();
+            RenderContext.HtmlTextWriter.AddAttribute(HtmlTextWriterAttribute.Type, "text");
+            RenderContext.HtmlTextWriter.RenderBeginTag(HtmlTextWriterTag.Input);
+            RenderContext.HtmlTextWriter.RenderEndTag();
         }
     }
 }

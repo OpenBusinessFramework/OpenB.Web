@@ -18,7 +18,20 @@ namespace OpenB.WebPackages.BootStrap
 
             Type template = types.Where(t => t.GetInterfaces().Any(i => i.IsGenericType && i.GenericTypeArguments.All(a => a.Equals(type)))).Single(t => typeof(IWebControlTemplate).IsAssignableFrom(t));
 
-            return (IWebControlTemplate) Activator.CreateInstance(template, element, renderContext);
+            var templateInstance = (IWebControlTemplate)Activator.CreateInstance(template, element, renderContext);
+
+            var collectionTemplate = templateInstance as IWebControlCollectionTemplate;
+            
+            if (collectionTemplate != null)
+            {
+                var elementContainer = element as IElementContainer;
+                foreach(IElement childElement in elementContainer.Elements)
+                {
+                    collectionTemplate.ChildTemplates.Add(BindTemplate(childElement, renderContext));
+                }
+            }
+
+            return templateInstance;
         }
     }
 }

@@ -1,3 +1,4 @@
 ﻿<obml:page xmlns:obml="http://www.openb.org/schemas/obml">
-  
+  <obml:textbox />
+  <obml:button value="Save"/>
 </obml:page>

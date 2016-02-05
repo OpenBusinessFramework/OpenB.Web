@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web.UI;
 using System.Xml;
@@ -27,14 +28,16 @@ namespace OpenB.Web.Content
             this.controlTemplateBinder = controlTemplateBinder;
         }
 
-        public WebRequestOutput Create(XmlDocument xmlDocument)
+        public WebRequestOutput Create(Uri uri, XmlDocument xmlDocument)
         {
+            if (uri == null)
+                throw new ArgumentNullException(nameof(uri));
             if (xmlDocument == null)
                 throw new ArgumentNullException(nameof(xmlDocument));
 
             StringBuilder stringBuilder = new StringBuilder();
             TextWriter textWriter = new StringWriter(stringBuilder);
-            RenderContext renderContext = new RenderContext(new HtmlTextWriter(textWriter), referenceService);
+            RenderContext renderContext = new RenderContext(new HtmlTextWriter(textWriter), referenceService, uri);
 
             WebRequestOutput output = new WebRequestOutput { ContentType = "text/html" };
 
@@ -45,12 +48,17 @@ namespace OpenB.Web.Content
             try
             {
                 var element = CreateElement(renderContext, currentNode, availableTypes);
-                
-                output.Response = stringBuilder.ToString();              
+                var template = controlTemplateBinder.BindTemplate(element, renderContext);
+
+                // TODO: Initialization to add scripts.
+                template.Render();                
+
+                output.Response = stringBuilder.ToString();
+                renderContext.HtmlTextWriter.Close();
+
             }
             catch(ControlNotSupportedExecption cne)
             {
-
                 output.Error = new ControlNotSupportedError(cne.NodeName);
             }
             return output;
@@ -68,8 +76,18 @@ namespace OpenB.Web.Content
             }
 
             IElement element = (IElement)Activator.CreateInstance(controlType, renderContext);
-            IElementContainer container = element as IElementContainer;
 
+            foreach(XmlAttribute attribute in currentNode.Attributes)
+            {
+               PropertyInfo property = controlType.GetProperties().SingleOrDefault(p => p.GetCustomAttributes(typeof(AttributeNameAttribute), false).Cast<AttributeNameAttribute>().Any(c => c.Name.Equals(attribute.Name)));
+
+                if (property != null)
+                {
+                    property.SetValue(element, attribute.Value);
+                }
+            }
+
+            IElementContainer container = element as IElementContainer;
 
             if (container != null)
             {

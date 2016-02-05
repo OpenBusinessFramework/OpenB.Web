@@ -1,4 +1,5 @@
 ﻿using OpenB.Web.Content.Elements;
+using System.Collections.Generic;
 
 namespace OpenB.Web.Content.Templating
 {
@@ -12,4 +13,14 @@ namespace OpenB.Web.Content.Templating
     {
      
     }    
+
+    public interface IWebControlCollectionTemplate: IWebControlTemplate
+    {
+        IList<IWebControlTemplate> ChildTemplates { get; }
+    }
+
+    public interface IWebControlCollectionTemplate<T> : IWebControlCollectionTemplate where T : IElement
+    {
+
+    }
 }

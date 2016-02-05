@@ -1,4 +1,5 @@
-﻿using OpenB.Web.Http;
+﻿using OpenB.Web.Content.Elements;
+using OpenB.Web.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,9 @@ namespace OpenB.Web
     {
         public IWebControlTemplateBinder ControlTemplateBinder { get; private set; }
         public IWebRequestFactory WebRequestFactory { get; private set; }
-       
-        
+               
         protected BaseWebPackage(IWebControlTemplateBinder controlTemplateBinder , IWebRequestFactory webRequestFactory)
-        {
-          
+        {          
             if (webRequestFactory == null)
                 throw new ArgumentNullException(nameof(webRequestFactory));
             if (controlTemplateBinder == null)
@@ -24,6 +23,6 @@ namespace OpenB.Web
             ControlTemplateBinder = controlTemplateBinder;
             WebRequestFactory = webRequestFactory;
            
-        }      
+        }     
     }
 }

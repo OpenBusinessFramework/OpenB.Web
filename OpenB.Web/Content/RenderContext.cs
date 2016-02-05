@@ -5,9 +5,12 @@ namespace OpenB.Web.Content
 {
     public class RenderContext
     {
-        public RenderContext(HtmlTextWriter textWriter, IWebReferenceService referenceService)
-        {
-            
+        
+
+        public RenderContext(HtmlTextWriter textWriter, IWebReferenceService referenceService, Uri requestUri)
+        {           
+            if (requestUri == null)
+                throw new ArgumentNullException(nameof(requestUri));
             if (textWriter == null)
                 throw new System.ArgumentNullException(nameof(textWriter));
             if (referenceService == null)
@@ -15,10 +18,11 @@ namespace OpenB.Web.Content
 
             HtmlTextWriter = textWriter;
             ReferenceService = referenceService;
+            RequestUri = requestUri;
         }
 
        public HtmlTextWriter HtmlTextWriter { get; }
        public IWebReferenceService ReferenceService { get; }
-       public Uri RequestUri { get; set; }
+       public Uri RequestUri { get; private set; }
     }
 }
