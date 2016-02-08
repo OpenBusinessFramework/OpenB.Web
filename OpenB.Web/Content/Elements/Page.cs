@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace OpenB.Web.Content.Elements
-{
+{    
     public abstract class BaseElement : IElement
     {
         public string Key
@@ -30,14 +30,6 @@ namespace OpenB.Web.Content.Elements
         public PageElement(RenderContext renderContext): base (renderContext)
         {
             Elements = new List<IElement>();
-        }
-    }
-
-    [ElementName("textbox")]
-    public class TextboxElement : BaseElement, IElement
-    {
-        public TextboxElement(RenderContext renderContext): base (renderContext)
-        {
         }
     }
 

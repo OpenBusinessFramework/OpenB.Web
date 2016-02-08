@@ -15,7 +15,8 @@ namespace OpenB.WebPackages.BootStrap
             new Web.Http.FileHandlers.ObmlFileHandler(
                     new BootstrapControlTemplateBinder(), 
                     new WebReferenceService(webReferences)),
-            new Web.Http.FileHandlers.IconFileHandler()
+            new Web.Http.FileHandlers.IconFileHandler(),
+            new MapFileHandler(),
         })
         {
         }

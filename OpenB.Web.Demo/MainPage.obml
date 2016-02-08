@@ -1,4 +1,5 @@
 ﻿<obml:page xmlns:obml="http://www.openb.org/schemas/obml">
   <obml:textbox />
+  <obml:combobox name="Choose an item" />
   <obml:button value="Save"/>
 </obml:page>

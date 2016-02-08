@@ -22,6 +22,7 @@ namespace OpenB.WebPackages.BootStrap.Templates
 
         public override void Render()
         {
+            RenderContext.HtmlTextWriter.Write("<!DOCTYPE html>");
             RenderContext.HtmlTextWriter.RenderBeginTag(HtmlTextWriterTag.Html);
             RenderContext.HtmlTextWriter.RenderBeginTag(HtmlTextWriterTag.Head);
 

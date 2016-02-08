@@ -48,7 +48,10 @@
     <Compile Include="Content\ControlNotSupportedExecption.cs" />
     <Compile Include="Content\Elements\AttributeNameAttribute.cs" />
     <Compile Include="Content\Elements\ButtonElement.cs" />
+    <Compile Include="Content\Elements\ComboBoxElement.cs" />
+    <Compile Include="Content\Elements\ComboboxItem.cs" />
     <Compile Include="Content\Elements\Page.cs" />
+    <Compile Include="Content\Elements\TextboxElement.cs" />
     <Compile Include="Content\IReferenceService.cs" />
     <Compile Include="Content\ObmlContentFactory.cs" />
     <Compile Include="Content\RenderContext.cs" />

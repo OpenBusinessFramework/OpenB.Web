@@ -43,4 +43,41 @@ namespace OpenB.WebPackages.BootStrap.FileHandlers
             return output;
         }
     }
+
+    public class MapFileHandler : IWebRequestFileHandler
+    {
+        public string RequestPattern
+        {
+            get
+            {
+                return @".+\.map";
+            }
+        }
+
+        public WebRequestOutput HandleRequest(WebRequestInput requestInput)
+        {
+            WebRequestOutput output = new WebRequestOutput();
+            Assembly assembly = Assembly.GetAssembly(this.GetType());
+            var resourceName = $"{assembly.GetName().Name}.Content{requestInput.RequestFileName.Replace('/', '.').Replace("..", ".")}";
+            var stream = assembly.GetManifestResourceStream(resourceName);
+            if (stream != null)
+            {
+                using (stream)
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        string result = reader.ReadToEnd();
+                        output.ContentType = "application/octet-stream";
+                        output.Response = result;
+                    }
+                }
+            }
+            else
+            {
+                output.Error = new ResourceNotFoundError();
+            }
+
+            return output;
+        }
+    }
 }
