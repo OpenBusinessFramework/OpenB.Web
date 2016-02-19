@@ -7,7 +7,7 @@ namespace OpenB.Web.Content
     {
         
 
-        public RenderContext(HtmlTextWriter textWriter, IWebReferenceService referenceService, Uri requestUri)
+        public RenderContext(HtmlTextWriter textWriter, IWebReferenceService referenceService, Uri requestUri, string applicationPath)
         {           
             if (requestUri == null)
                 throw new ArgumentNullException(nameof(requestUri));
@@ -19,8 +19,10 @@ namespace OpenB.Web.Content
             HtmlTextWriter = textWriter;
             ReferenceService = referenceService;
             RequestUri = requestUri;
+            ApplicationPath = applicationPath;
         }
 
+        public string ApplicationPath { get; }
        public HtmlTextWriter HtmlTextWriter { get; }
        public IWebReferenceService ReferenceService { get; }
        public Uri RequestUri { get; private set; }

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<obbm:businessObject xmlns:obbm="http://www.openb.org/schemas/obml/businessObjects" key="MyFirstBusinessObject">
+  <obbm:service reference="UserManagementService">
+    <obbm:initializationMethod reference="GetAllUsers">
+
+    </obbm:initializationMethod>
+  </obbm:service>
+</obbm:businessObject>

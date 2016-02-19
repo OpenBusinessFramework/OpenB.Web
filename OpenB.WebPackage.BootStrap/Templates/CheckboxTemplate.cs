@@ -6,9 +6,9 @@ using System.Web.UI;
 
 namespace OpenB.WebPackages.BootStrap.Templates
 {
-    public class TextboxTemplate : BaseWebControlTemplate<TextboxElement>, IWebControlTemplate<TextboxElement>
+    public class CheckboxTemplate : BaseWebControlTemplate<CheckboxElement>, IWebControlTemplate<CheckboxElement>
     {
-        public TextboxTemplate(TextboxElement textbox, RenderContext renderContext): base (textbox, renderContext)
+        public CheckboxTemplate(CheckboxElement textbox, RenderContext renderContext): base (textbox, renderContext)
         {
         }
 
@@ -19,13 +19,12 @@ namespace OpenB.WebPackages.BootStrap.Templates
 
         public override void Render()
         {
-            if (Element.Value != null)
+            if (Element.Value)
             {
-                RenderContext.HtmlTextWriter.AddAttribute(HtmlTextWriterAttribute.Value, Element.Value);
+                RenderContext.HtmlTextWriter.AddAttribute(HtmlTextWriterAttribute.Checked, "checked");
             }
 
-            RenderContext.HtmlTextWriter.AddAttribute("ng-model", Element.Key);
-            RenderContext.HtmlTextWriter.AddAttribute(HtmlTextWriterAttribute.Type, "text");
+            RenderContext.HtmlTextWriter.AddAttribute(HtmlTextWriterAttribute.Type, "checkbox");
             RenderContext.HtmlTextWriter.RenderBeginTag(HtmlTextWriterTag.Input);
             RenderContext.HtmlTextWriter.RenderEndTag();
         }

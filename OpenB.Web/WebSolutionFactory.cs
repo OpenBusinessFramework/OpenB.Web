@@ -29,8 +29,8 @@ namespace OpenB.Web
                 assemblies.Add(Assembly.LoadFile(fileInfo.FullName));
             }
 
-            var packageAssemblyRef =  xmlDocument.SelectSingleNode("/OpenB.Configuration/OpenB.Web/WebSolution/WebPackage").InnerText;
-            var solutionName = xmlDocument.SelectSingleNode("/OpenB.Configuration/OpenB.Web/WebSolution/Name").InnerText;
+            var packageAssemblyRef =  xmlDocument.SelectSingleNode("/Configuration/WebSolution/WebPackage").InnerText;
+            var solutionName = xmlDocument.SelectSingleNode("/Configuration/WebSolution/Name").InnerText;
 
             Assembly packageAssembly = Assembly.Load(packageAssemblyRef);
 

@@ -49,8 +49,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Templates\BaseWebControlTemplate.cs" />
     <Compile Include="Templates\ButtonTemplate.cs" />
+    <Compile Include="Templates\CheckboxTemplate.cs" />
     <Compile Include="Templates\ComboboxTemplate.cs" />
+    <Compile Include="Templates\ComponentTemplate.cs" />
     <Compile Include="Templates\IAngularController.cs" />
+    <Compile Include="Templates\LabelTemplate.cs" />
     <Compile Include="Templates\PageTemplate.cs" />
     <Compile Include="Templates\TextboxTemplate.cs" />
   </ItemGroup>

@@ -6,6 +6,6 @@ namespace OpenB.Web.Content
 {
     internal interface IObmlContentFactory
     {
-        WebRequestOutput Create(Uri uri, XmlDocument xmlDocument);
+        WebRequestOutput Create(string applicationPath, Uri uri, XmlDocument xmlDocument);
     }
 }

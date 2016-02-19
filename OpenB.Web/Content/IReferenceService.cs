@@ -4,6 +4,6 @@ namespace OpenB.Web.Content
 {
     public interface IWebReferenceService
     {
-        IEnumerable<string> GetLinks(string protocol, string host);
+        IEnumerable<string> GetLinks(string protocol, string hostApplicationPath);
     }
 }

@@ -28,7 +28,7 @@ namespace OpenB.Web.Content
             this.controlTemplateBinder = controlTemplateBinder;
         }
 
-        public WebRequestOutput Create(Uri uri, XmlDocument xmlDocument)
+        public WebRequestOutput Create(string applicationPath, Uri uri, XmlDocument xmlDocument)
         {
             if (uri == null)
                 throw new ArgumentNullException(nameof(uri));
@@ -37,7 +37,7 @@ namespace OpenB.Web.Content
 
             StringBuilder stringBuilder = new StringBuilder();
             TextWriter textWriter = new StringWriter(stringBuilder);
-            RenderContext renderContext = new RenderContext(new HtmlTextWriter(textWriter), referenceService, uri);
+            RenderContext renderContext = new RenderContext(new HtmlTextWriter(textWriter), referenceService, uri, applicationPath);
 
             WebRequestOutput output = new WebRequestOutput { ContentType = "text/html" };
 
@@ -79,11 +79,27 @@ namespace OpenB.Web.Content
 
             foreach(XmlAttribute attribute in currentNode.Attributes)
             {
+                // skip namespaced attributes, they belong to other implementations.
+                if (attribute.Name.Contains(":"))
+                    continue;
+
                PropertyInfo property = controlType.GetProperties().SingleOrDefault(p => p.GetCustomAttributes(typeof(AttributeNameAttribute), false).Cast<AttributeNameAttribute>().Any(c => c.Name.Equals(attribute.Name)));
 
                 if (property != null)
                 {
-                    property.SetValue(element, attribute.Value);
+                    if (property.PropertyType == typeof(Boolean))
+                    {
+                        property.SetValue(element, Boolean.Parse(attribute.Value));
+                    }
+                    else
+                    {
+                        property.SetValue(element, attribute.Value);
+                    }
+                    
+                }
+                else
+                {
+                    throw new AttributeNotSupportedException($"Control {nodeName} is does not support attribute {attribute.Name}.");
                 }
             }
 

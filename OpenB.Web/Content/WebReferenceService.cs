@@ -19,11 +19,11 @@ namespace OpenB.Web.Content
         }
 
 
-        public IEnumerable<string> GetLinks(string protocol, string host)
+        public IEnumerable<string> GetLinks(string protocol, string hostApplicationPath)
         {
             foreach(IWebReference webReference in webReferences)
             {
-                yield return webReference.GetWebReference($"{protocol}://{host}");
+                yield return webReference.GetWebReference($"{protocol}://{hostApplicationPath}");
             }
         }
     }

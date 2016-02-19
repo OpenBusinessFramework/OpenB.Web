@@ -39,7 +39,7 @@ namespace OpenB.Web.Http.FileHandlers
                 XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.Load(obmlFileInfo.FullName);
 
-                WebRequestOutput content = contentFactory.Create(requestInput.Url, xmlDocument);
+                WebRequestOutput content = contentFactory.Create(requestInput.ApplicationPath, requestInput.Url, xmlDocument);
 
                 output.ContentType = content.ContentType;
                 output.Response = content.Response;

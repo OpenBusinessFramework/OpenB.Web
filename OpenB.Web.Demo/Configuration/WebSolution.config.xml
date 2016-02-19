@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<OpenB.Configuration>
-  <OpenB.Web>    
+<Configuration>  
     <WebSolution>
       <Name>OpenB Demo</Name>
       <WebPackage>OpenB.WebPackages.BootStrap</WebPackage>
+      <ModelNamespace>OpenB.Web.Demo.Models</ModelNamespace>
     </WebSolution>
-  </OpenB.Web>
-</OpenB.Configuration>
+</Configuration>

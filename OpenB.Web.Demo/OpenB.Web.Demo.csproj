@@ -16,7 +16,7 @@
     <RootNamespace>OpenB.Web.Demo</RootNamespace>
     <AssemblyName>OpenB.Web.Demo</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -43,9 +43,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Configuration\WebSolution.config.xml" />
+    <Content Include="Configuration\WebSolution.config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
     <EmbeddedResource Include="favicon.ico" />
     <Content Include="packages.config" />
+    <Content Include="MainPage.obds" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -54,7 +58,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MainPage.obml" />
+    <Content Include="MainPage.obml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -90,7 +96,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54128</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54128/</IISUrl>
+          <IISUrl>http://localhost/OpenB.Web.Demo</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -39,10 +39,11 @@ namespace OpenB.Web.Http
                 throw new ArgumentNullException(nameof(context));
 
             var extension = context.Request.CurrentExecutionFilePathExtension;
-            var filename = context.Request.CurrentExecutionFilePath;
+            var filename = context.Request.AppRelativeCurrentExecutionFilePath.Remove(0,1);
 
             WebRequestInput webRequestInput = new WebRequestInput()
             {
+                ApplicationPath = context.Request.ApplicationPath,
                 RequestExtension = extension.Replace(".", string.Empty),
                 RequestFileName = filename,
                 Url = context.Request.Url
