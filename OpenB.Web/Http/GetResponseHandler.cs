@@ -4,7 +4,7 @@ using System.Web.SessionState;
 
 namespace OpenB.Web.Http
 {
-    internal class GetResponseHandler : IHttpHandler
+    internal class GetResponseHandler : IHttpHandler, IRequiresSessionState
     {
         public bool IsReusable
         {
