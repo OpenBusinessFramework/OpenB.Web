@@ -11,7 +11,7 @@ namespace OpenB.Web.Content.Elements
             private set;
         }
 
-        public PageElement(RenderContext renderContext): base (renderContext)
+        public PageElement(RenderContext renderContext, IElementContainer parent): base (renderContext, parent)
         {
             Elements = new List<IElement>();
         }

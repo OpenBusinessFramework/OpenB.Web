@@ -55,7 +55,7 @@ namespace OpenB.WebPackages.BootStrap.Templates
             RenderContext.HtmlTextWriter.RenderEndTag();
 
             RenderContext.HtmlTextWriter.RenderBeginTag(HtmlTextWriterTag.Body);
-            RenderContext.HtmlTextWriter.AddAttribute("ng-controller", string.Concat(Element.Key, "Controller"));
+            RenderContext.HtmlTextWriter.AddAttribute("ng-controller", string.Concat(Element.AggregatedKey, "Controller"));
             RenderContext.HtmlTextWriter.AddAttribute(HtmlTextWriterAttribute.Class, "container");
             RenderContext.HtmlTextWriter.RenderBeginTag(HtmlTextWriterTag.Div);
             

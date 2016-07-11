@@ -1,6 +1,7 @@
 ﻿using OpenB.Web.Content.Elements;
 using OpenB.Web.Http;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -35,9 +36,11 @@ namespace OpenB.Web.Content
             if (xmlDocument == null)
                 throw new ArgumentNullException(nameof(xmlDocument));
 
+            string applicationHost = GetApplicationHost(uri);
+
             StringBuilder stringBuilder = new StringBuilder();
             TextWriter textWriter = new StringWriter(stringBuilder);
-            RenderContext renderContext = new RenderContext(new HtmlTextWriter(textWriter), referenceService, uri, applicationPath);
+            RenderContext renderContext = new RenderContext(new HtmlTextWriter(textWriter), referenceService, uri, applicationPath, applicationHost);
 
             WebRequestOutput output = new WebRequestOutput { ContentType = "text/html" };
 
@@ -47,25 +50,40 @@ namespace OpenB.Web.Content
 
             try
             {
-                var element = CreateElement(renderContext, currentNode, availableTypes);
+                var element = CreateElement(renderContext, currentNode, availableTypes, null);
                 var template = controlTemplateBinder.BindTemplate(element, renderContext);
 
                 // TODO: Initialization to add scripts.
                 template.Render();                
 
                 output.Response = stringBuilder.ToString();
-                renderContext.HtmlTextWriter.Close();
+               
 
+                renderContext.HtmlTextWriter.Close();
             }
             catch(ControlNotSupportedExecption cne)
             {
                 output.Error = new ControlNotSupportedError(cne.NodeName);
             }
             return output;
+        }
 
-        }       
+        private string GetApplicationHost(Uri uri)
+        {
+            bool isDefaultHttp = (uri.Port == 80 && uri.Scheme == "http");
+            bool isDefaultHttps = (uri.Port == 443 && uri.Scheme == "https");
 
-        private IElement CreateElement(RenderContext renderContext, XmlNode currentNode, IEnumerable<Type> availableTypes)
+            if (isDefaultHttp || isDefaultHttps)
+            {
+                return $"{uri.Scheme}://{uri.Host}";
+            }
+            else
+            { 
+                return $"{uri.Scheme}://{uri.Host}:{uri.Port}";
+            }
+        }
+
+        private IElement CreateElement(RenderContext renderContext, XmlNode currentNode, IEnumerable<Type> availableTypes, IElementContainer parent)
         {
             var nodeName = currentNode.LocalName;
             Type controlType = availableTypes.SingleOrDefault(a => a.GetCustomAttributes(typeof(ElementNameAttribute), false).Cast<ElementNameAttribute>().Any(c => c.ElementName.Equals(nodeName)));
@@ -75,7 +93,8 @@ namespace OpenB.Web.Content
                 throw new ControlNotSupportedException($"Control {nodeName} is not supported.");
             }
 
-            IElement element = (IElement)Activator.CreateInstance(controlType, renderContext);
+            IElement element = (IElement)Activator.CreateInstance(controlType, renderContext, parent);
+                     
 
             foreach(XmlAttribute attribute in currentNode.Attributes)
             {
@@ -103,6 +122,67 @@ namespace OpenB.Web.Content
                 }
             }
 
+            // Databinding.
+            IDataBoundElement dataBoundElement = element as IDataBoundElement;
+         
+
+            if (dataBoundElement != null && dataBoundElement.Model != null)
+            {
+                // TODO: Move to service.
+                var currentPath = AppDomain.CurrentDomain.BaseDirectory;
+                Assembly relatedAssembly = Assembly.LoadFile(Path.Combine(currentPath, "Modules", "ViewModels.dll"));
+
+                if (relatedAssembly != null)
+                {                    
+                    string fullClassName = relatedAssembly.GetName().Name + "." + dataBoundElement.Model;
+
+                    if (parent != null)
+                    {
+                        IDataBoundElement dataBoundParent = parent as IDataBoundElement;
+
+                        if (dataBoundParent != null && !string.IsNullOrEmpty(dataBoundParent.Model))
+                        {
+
+                            object relatedModel = renderContext.ModelCache[parent.AggregatedKey];
+                            object model = relatedModel.GetType().GetProperty(dataBoundElement.Model).GetValue(relatedModel);
+
+                            var comboBoxElement = element as ComboBoxElement;
+                            if (comboBoxElement != null)
+                            {
+                                object dataSource = relatedModel.GetType().GetProperty(comboBoxElement.DataSource).GetValue(relatedModel);
+
+                                foreach (var value in (dataSource as IEnumerable))
+                                {
+                                    comboBoxElement.Items.Add(new ComboboxTextItem() { Value = value.ToString()  });
+                                }
+                               
+                            }
+                        }
+                        else
+                        {
+
+                            Type type = relatedAssembly.GetType(fullClassName);
+
+                            if (type != null)
+                            {
+                                object model = Activator.CreateInstance(type);
+
+                                if (model != null)
+                                {
+                                    renderContext.ModelCache.Add(element.AggregatedKey, model);
+                                }
+                            }
+                            else
+                            {
+                                throw new NotSupportedException("Cannot load model");
+                            }
+                        }
+                    }
+
+                  
+                }
+            }
+
             IElementContainer container = element as IElementContainer;
 
             if (container != null)
@@ -111,7 +191,7 @@ namespace OpenB.Web.Content
 
                 foreach (XmlNode node in childNodes)
                 {
-                    container.Elements.Add(CreateElement(renderContext, node, availableTypes));
+                    container.Elements.Add(CreateElement(renderContext, node, availableTypes, container));
                 }
 
                 return container;

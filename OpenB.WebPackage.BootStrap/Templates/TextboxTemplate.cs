@@ -24,7 +24,7 @@ namespace OpenB.WebPackages.BootStrap.Templates
                 RenderContext.HtmlTextWriter.AddAttribute(HtmlTextWriterAttribute.Value, Element.Value);
             }
 
-            RenderContext.HtmlTextWriter.AddAttribute("ng-model", Element.Key);
+            RenderContext.HtmlTextWriter.AddAttribute("ng-model", Element.AggregatedKey);
             RenderContext.HtmlTextWriter.AddAttribute(HtmlTextWriterAttribute.Type, "text");
             RenderContext.HtmlTextWriter.RenderBeginTag(HtmlTextWriterTag.Input);
             RenderContext.HtmlTextWriter.RenderEndTag();

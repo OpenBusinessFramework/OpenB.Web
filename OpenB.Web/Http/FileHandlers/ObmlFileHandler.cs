@@ -42,7 +42,7 @@ namespace OpenB.Web.Http.FileHandlers
                 WebRequestOutput content = contentFactory.Create(requestInput.ApplicationPath, requestInput.Url, xmlDocument);
 
                 output.ContentType = content.ContentType;
-                output.Response = content.Response;
+                output.Response = content.Response;               
             }
             else
             {

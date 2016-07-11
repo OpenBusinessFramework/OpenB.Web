@@ -1,0 +1,11 @@
+﻿<obml:page xmlns:obml="http://www.openb.org/schemas/obml/elements" title="Real-HRM | Deployment" key="deploymentPage">
+  <obml:component model="DeploymentView" key="deploymentView">   
+    <obml:combobox name="Kies een Real-HRM versie" key="realHRMVersion" />
+    <obml:combobox name="Kies een Exact Synergy versie" model="SynergyVersion" dataSource="AvailableSynergyVersions" key="synergyVersion"/>
+    <obml:combobox name="Kies een doel machine" model="TargetServer" dataSource ="AvailableTargetServers" key="targetServer" />
+    <obml:combobox name="Kies een doel database" key="databaseInstance" />
+    <obml:textbox model="DatabaseText" key="databaseInstancetext" />
+    <obml:checkbox />
+    <obml:button value="Deploy" action="Save" />
+  </obml:component>
+</obml:page>

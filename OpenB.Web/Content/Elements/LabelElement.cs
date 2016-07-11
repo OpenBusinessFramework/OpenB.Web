@@ -3,7 +3,7 @@
     [ElementName("label")]
     public class LabelElement : BaseElement, IElement, IInlineElement
     {
-        public LabelElement(RenderContext renderContext) : base(renderContext)
+        public LabelElement(RenderContext renderContext, IElementContainer parent) : base(renderContext, parent)
         {
         }
 

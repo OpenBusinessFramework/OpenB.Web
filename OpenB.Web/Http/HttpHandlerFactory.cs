@@ -19,6 +19,8 @@ namespace OpenB.Web.Http
             {
                 case "get":                
                     return GetResponseHandler.GetInstance();
+                case "post":
+                    return PostResponseHandler.GetInstance();
                 default:
                     throw new NotSupportedException($"RequestType {contextRequestType} is not supported.");
             }           

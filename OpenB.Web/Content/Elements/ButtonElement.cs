@@ -3,7 +3,7 @@
     [ElementName("button")]
     public class ButtonElement : BaseElement, IElement
     {
-        public ButtonElement(RenderContext renderContext): base (renderContext)
+        public ButtonElement(RenderContext renderContext, IElementContainer parent): base (renderContext, parent)
         {
         }
 
@@ -16,6 +16,13 @@
 
         [AttributeName("value")]
         public string Value
+        {
+            get;
+            set;
+        }
+
+        [AttributeName("action")]
+        public string Action
         {
             get;
             set;

@@ -16,7 +16,7 @@
     <RootNamespace>OpenB.Web.Demo</RootNamespace>
     <AssemblyName>OpenB.Web.Demo</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -48,8 +48,15 @@
       <SubType>Designer</SubType>
     </Content>
     <EmbeddedResource Include="favicon.ico" />
+    <Content Include="Modules\ViewModels.dll" />
     <Content Include="packages.config" />
     <Content Include="MainPage.obds" />
+    <Content Include="Deployment.obml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Wizard.obml">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -68,9 +75,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modules\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\OpenB.WebPackage.BootStrap\OpenB.WebPackages.BootStrap.csproj">
       <Project>{6eb74340-5524-4013-99e0-7a27587cb263}</Project>
@@ -96,7 +101,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54128</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/OpenB.Web.Demo</IISUrl>
+          <IISUrl>http://localhost:54128/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

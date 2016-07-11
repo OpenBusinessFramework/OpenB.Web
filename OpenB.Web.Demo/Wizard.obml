@@ -1,4 +1,4 @@
-﻿<obml:page xmlns:obml="http://www.openb.org/schemas/obml/elements" title="OpenB | TestPage" key="myFirstPage">
+﻿<obml:wizard xmlns:obml="http://www.openb.org/schemas/obml/elements" title="OpenB | Wizard" key="MyFirstWizard">
   <obml:textbox value="Hello!" key="MainTextBox" />
   <obml:combobox name="Choose an item" />
   <obml:button value="Save"/>
@@ -18,4 +18,4 @@
       <obml:button value="Save Component"/>
     </obml:component>
   </obml:component>
-</obml:page>
+</obml:wizard>

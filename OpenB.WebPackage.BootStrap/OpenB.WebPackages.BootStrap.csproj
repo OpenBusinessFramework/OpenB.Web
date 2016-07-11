@@ -56,6 +56,7 @@
     <Compile Include="Templates\LabelTemplate.cs" />
     <Compile Include="Templates\PageTemplate.cs" />
     <Compile Include="Templates\TextboxTemplate.cs" />
+    <Compile Include="Templates\WizardTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenB.Web\OpenB.Web.csproj">
@@ -95,7 +96,7 @@
     <Content Include="Content\js\jquery-1.9.1.intellisense.js" />
     <Content Include="Content\js\jquery-1.9.1.js" />
     <EmbeddedResource Include="Content\js\jquery-1.9.1.min.js" />
-    <Content Include="Content\js\OpenB.Controls.js" />
+    <EmbeddedResource Include="Content\js\OpenB.Controls.js" />
     <EmbeddedResource Include="Content\js\angular-animate.min.js" />
     <Content Include="Content\js\angular.js" />
     <EmbeddedResource Include="Content\js\angular.min.js" />

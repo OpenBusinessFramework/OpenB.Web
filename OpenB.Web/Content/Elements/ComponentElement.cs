@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace OpenB.Web.Content.Elements
 {
     [ElementName("component")]
     public class ComponentElement : BaseElement, IElementContainer, IDataBoundElement
     {
-        public ComponentElement(RenderContext renderContext): base (renderContext)
+        public ComponentElement(RenderContext renderContext, IElementContainer parent): base (renderContext, parent)
         {
             Elements = new List<IElement>();
         }
@@ -24,6 +20,6 @@ namespace OpenB.Web.Content.Elements
         }
 
         [AttributeName("title")]
-        public string Title { get; set; }
+        public string Title { get; set; }     
     }
 }

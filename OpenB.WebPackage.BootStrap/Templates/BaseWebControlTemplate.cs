@@ -24,7 +24,7 @@ namespace OpenB.WebPackages.BootStrap.Templates
                 throw new System.ArgumentNullException(nameof(element));
             this.Element = element;
             this.RenderContext = renderContext;
-        }
+        }      
 
         public abstract void Initialize();
         public abstract void Render();

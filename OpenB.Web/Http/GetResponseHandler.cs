@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using System.Web.SessionState;
 
 namespace OpenB.Web.Http
 {
@@ -60,8 +61,11 @@ namespace OpenB.Web.Http
 
                 if (!result.HasError)
                 {
+                    var sessionContext = SessionContext.Create(context);
+
                     context.Response.ContentType = result.ContentType;
                     context.Response.Output.Write(result.Response);
+                  
                 } 
                 else
                 {

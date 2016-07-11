@@ -3,16 +3,32 @@
     public abstract class BaseElement : IElement
     {
         [AttributeName("key")]
-        public string Key
+        public string Key { get; set; }
+      
+        public string AggregatedKey
         {
-            get;
-            set;
+            get
+            {
+                if(Parent == null || Parent is PageElement || string.IsNullOrEmpty(Parent.AggregatedKey))
+                {
+                    return Key;
+                }
+                else
+                {
+                    return $"{Parent.AggregatedKey}.{Key}";
+                }
+            }          
         }
 
+        public IElementContainer Parent { get; private set; }
+
         protected readonly RenderContext renderContext;
-        protected BaseElement(RenderContext renderContext)
+      
+
+        protected BaseElement(RenderContext renderContext, IElementContainer parent)
         {
             this.renderContext = renderContext;
+            this.Parent = parent;
         }
     }
 }

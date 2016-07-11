@@ -3,7 +3,7 @@
     [ElementName("textbox")]
     public class TextboxElement : BaseElement, IElement
     {
-        public TextboxElement(RenderContext renderContext): base (renderContext)
+        public TextboxElement(RenderContext renderContext, IElementContainer parent): base (renderContext, parent)
         {
         }
 
@@ -12,12 +12,15 @@
         {
             get; set;
         }
+
+        [AttributeName("model")]
+        public string Model { get; set; }
     }
 
     [ElementName("checkbox")]
     public class CheckboxElement : BaseElement, IElement
     {
-        public CheckboxElement(RenderContext renderContext) : base(renderContext)
+        public CheckboxElement(RenderContext renderContext, IElementContainer parent) : base(renderContext, parent)
         {
         }
 
@@ -25,6 +28,6 @@
         public bool Value
         {
             get; set;
-        }
+        }      
     }
 }

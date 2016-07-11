@@ -27,6 +27,11 @@ namespace OpenB.WebPackages.BootStrap.Templates
                 RenderContext.HtmlTextWriter.AddAttribute(HtmlTextWriterAttribute.Type, "btn");
             }
 
+            if (!string.IsNullOrEmpty(Element.Action))
+            {
+                RenderContext.HtmlTextWriter.AddAttribute("ng-click", "handle()");
+            }
+
             RenderContext.HtmlTextWriter.RenderBeginTag(HtmlTextWriterTag.Button);
             RenderContext.HtmlTextWriter.Write(Element.Value);
             RenderContext.HtmlTextWriter.RenderEndTag();

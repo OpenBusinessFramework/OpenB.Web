@@ -2,9 +2,11 @@
 {
     public interface IElement
     {
-        string Key
+        string AggregatedKey
         {
             get;
-        }
+        }       
+
+        IElementContainer Parent { get; }
     }
 }
