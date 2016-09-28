@@ -16,14 +16,14 @@ namespace OpenB.Web.Http
         readonly SessionDataService sessionDataService;
 
         private SessionContext(HttpContext httpContext, SessionDataService sessionDataService)
-        {
-            this.sessionDataService = sessionDataService;
+        {            
             if (sessionDataService == null)
                 throw new ArgumentNullException(nameof(sessionDataService));
             if (httpContext == null)
                 throw new ArgumentNullException(nameof(httpContext));
 
             this.httpContext = httpContext;
+            this.sessionDataService = sessionDataService;
 
             if (httpContext.Request.Cookies["OpenB.SessionId"] != null)
             {
@@ -40,7 +40,7 @@ namespace OpenB.Web.Http
          
             SessionIDManager sessionIdManager = new SessionIDManager();
             string sessionId = sessionIdManager.CreateSessionID(httpContext);
-            
+                
 
             return new SessionContext(httpContext, new SessionDataService(httpContext.Session));                                 
         }
@@ -53,18 +53,30 @@ namespace OpenB.Web.Http
 
     public class SessionDataService 
     {
-        IDictionary<string, IModel> sessionModelDictionary;
+        IDictionary<string, IModel> sessionModelDictionary;     
 
         public SessionDataService(HttpSessionState sessionState)
         {          
+
             if (sessionState == null)
                 throw new ArgumentNullException(nameof(sessionState));
 
-            sessionModelDictionary = sessionState["sessionModels"] as IDictionary<string, IModel>;
+            var sessionData = sessionState["sessionData"] as IDictionary<string, IModel>;
+
+            if (sessionData == null)
+            {
+                sessionData = new Dictionary<string, IModel>();
+                sessionState["sessionData"] = sessionData;
+            }
+
+            sessionModelDictionary = sessionData;
         }
 
         public object GetBusinessObjectFor(IDataBoundElement element)
         {
+            if (element == null)
+                throw new ArgumentNullException(nameof(element));
+
             throw new NotImplementedException();
         }
     }
