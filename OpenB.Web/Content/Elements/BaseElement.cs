@@ -1,9 +1,19 @@
 ﻿namespace OpenB.Web.Content.Elements
 {
+    public abstract class BaseInPageElement : BaseElement
+    {
+        public BaseInPageElement(RenderContext renderContext, IElementContainer parent) : base(renderContext, parent)
+        {
+        }
+
+        [AttributeName("Visible")]
+        public string Visible { get; set; }
+    }
+
     public abstract class BaseElement : IElement
     {
         [AttributeName("key")]
-        public string Key { get; set; }
+        public string Key { get; set; }       
       
         public string AggregatedKey
         {
@@ -22,8 +32,7 @@
 
         public IElementContainer Parent { get; private set; }
 
-        protected readonly RenderContext renderContext;
-      
+        protected readonly RenderContext renderContext;      
 
         protected BaseElement(RenderContext renderContext, IElementContainer parent)
         {

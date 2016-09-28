@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace OpenB.WebPackages.Bootstrap
+namespace OpenB.WebPackages.Bootstrap.Test
 {
     [TestFixture]
     public class DoSomethingTest

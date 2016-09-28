@@ -12,6 +12,11 @@ namespace OpenB.WebPackages.BootStrap
 
         public IWebControlTemplate BindTemplate(IElement element, RenderContext renderContext)
         {
+            if (renderContext == null)
+                throw new ArgumentNullException(nameof(renderContext));
+            if (element == null)
+                throw new ArgumentNullException(nameof(element));
+
             Type type = element.GetType();
 
             var types = this.GetType().Assembly.GetTypes().Where(t => typeof(IWebControlTemplate).IsAssignableFrom(t));

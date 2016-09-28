@@ -1,21 +1,15 @@
-﻿<obml:page xmlns:obml="http://www.openb.org/schemas/obml/elements" title="OpenB | TestPage" key="myFirstPage">
-  <obml:textbox value="Hello!" key="MainTextBox" />
-  <obml:combobox name="Choose an item" />
-  <obml:button value="Save"/>
-  <obml:checkbox value="false" />
-  <obml:component>
-    <obml:label value="Label value" />
-    <obml:component title="My first component">
-      <obml:combobox name="Choose an item internal" />
-      <obml:button value="Save Component"/>
-    </obml:component>
-    <obml:component  title="My second component">
-      <obml:combobox name="Choose an item internal" />
-      <obml:button value="Save Component"/>
-    </obml:component>
-    <obml:component  title="My third component">
-      <obml:combobox name="Choose an item internal" />
-      <obml:button value="Save Component"/>
-    </obml:component>
+﻿<obml:page xmlns:obml="http://www.openb.org/schemas/obml/elements" title="[Title]" key="myFirstPage" model="HomePageView">
+  <obml:component model="HomePageView">
+    <obml:textbox value="[Title]" />
+    <obml:textbox value="[Title]" />
+    <obml:textbox value="[Title]" />
+    <obml:textbox value="[Title]" />
+    <obml:textbox value="[Title]" />    
+    <obml:text>
+      <obml:heading size="2">Q and A</obml:heading>
+      <obml:paragraph>
+        <obml:textelement format="bold"></obml:textelement>
+      </obml:paragraph>
+    </obml:text>
   </obml:component>
 </obml:page>

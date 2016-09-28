@@ -4,7 +4,7 @@ using System.Web.SessionState;
 
 namespace OpenB.Web.Http
 {
-    internal class GetResponseHandler : IHttpHandler
+    internal class GetResponseHandler : IHttpHandler, IRequiresSessionState
     {
         public bool IsReusable
         {
@@ -78,7 +78,7 @@ namespace OpenB.Web.Http
             
             catch(NotSupportedException nsEx)
             {
-                context.Response.StatusCode = 501;
+                context.Response.StatusCode = 500;
             }      
 
          }

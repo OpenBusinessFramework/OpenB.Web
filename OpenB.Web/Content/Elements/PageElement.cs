@@ -2,6 +2,17 @@
 
 namespace OpenB.Web.Content.Elements
 {
+    [ElementName("text")]
+    public class TextElement : BaseElement
+    {
+        public TextElement(RenderContext renderContext, IElementContainer parent) : base(renderContext, parent)
+        {
+            Paragraphs = new List<ParagraphElement>();
+        }
+
+        public IList<ParagraphElement> Paragraphs { get; set; }
+    }
+
     [ElementName("page")]
     public class PageElement : BaseElement, IElementContainer
     {
@@ -11,7 +22,7 @@ namespace OpenB.Web.Content.Elements
             private set;
         }
 
-        public PageElement(RenderContext renderContext, IElementContainer parent): base (renderContext, parent)
+        public PageElement(RenderContext renderContext, IElementContainer parent) : base(renderContext, parent)
         {
             Elements = new List<IElement>();
         }
@@ -21,6 +32,12 @@ namespace OpenB.Web.Content.Elements
         {
             get;
             set;
+        }
+
+        [AttributeName("model")]
+        public object Model
+        {
+            get; set;
         }
     }
 }

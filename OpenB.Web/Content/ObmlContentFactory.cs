@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Xml;
 
@@ -94,94 +95,8 @@ namespace OpenB.Web.Content
             }
 
             IElement element = (IElement)Activator.CreateInstance(controlType, renderContext, parent);
-                     
 
-            foreach(XmlAttribute attribute in currentNode.Attributes)
-            {
-                // skip namespaced attributes, they belong to other implementations.
-                if (attribute.Name.Contains(":"))
-                    continue;
-
-               PropertyInfo property = controlType.GetProperties().SingleOrDefault(p => p.GetCustomAttributes(typeof(AttributeNameAttribute), false).Cast<AttributeNameAttribute>().Any(c => c.Name.Equals(attribute.Name)));
-
-                if (property != null)
-                {
-                    if (property.PropertyType == typeof(Boolean))
-                    {
-                        property.SetValue(element, Boolean.Parse(attribute.Value));
-                    }
-                    else
-                    {
-                        property.SetValue(element, attribute.Value);
-                    }
-                    
-                }
-                else
-                {
-                    throw new AttributeNotSupportedException($"Control {nodeName} is does not support attribute {attribute.Name}.");
-                }
-            }
-
-            // Databinding.
-            IDataBoundElement dataBoundElement = element as IDataBoundElement;
-         
-
-            if (dataBoundElement != null && dataBoundElement.Model != null)
-            {
-                // TODO: Move to service.
-                var currentPath = AppDomain.CurrentDomain.BaseDirectory;
-                Assembly relatedAssembly = Assembly.LoadFile(Path.Combine(currentPath, "Modules", "ViewModels.dll"));
-
-                if (relatedAssembly != null)
-                {                    
-                    string fullClassName = relatedAssembly.GetName().Name + "." + dataBoundElement.Model;
-
-                    if (parent != null)
-                    {
-                        IDataBoundElement dataBoundParent = parent as IDataBoundElement;
-
-                        if (dataBoundParent != null && !string.IsNullOrEmpty(dataBoundParent.Model))
-                        {
-
-                            object relatedModel = renderContext.ModelCache[parent.AggregatedKey];
-                            object model = relatedModel.GetType().GetProperty(dataBoundElement.Model).GetValue(relatedModel);
-
-                            var comboBoxElement = element as ComboBoxElement;
-                            if (comboBoxElement != null)
-                            {
-                                object dataSource = relatedModel.GetType().GetProperty(comboBoxElement.DataSource).GetValue(relatedModel);
-
-                                foreach (var value in (dataSource as IEnumerable))
-                                {
-                                    comboBoxElement.Items.Add(new ComboboxTextItem() { Value = value.ToString()  });
-                                }
-                               
-                            }
-                        }
-                        else
-                        {
-
-                            Type type = relatedAssembly.GetType(fullClassName);
-
-                            if (type != null)
-                            {
-                                object model = Activator.CreateInstance(type);
-
-                                if (model != null)
-                                {
-                                    renderContext.ModelCache.Add(element.AggregatedKey, model);
-                                }
-                            }
-                            else
-                            {
-                                throw new NotSupportedException("Cannot load model");
-                            }
-                        }
-                    }
-
-                  
-                }
-            }
+            BindValue(currentNode, nodeName, controlType, element);
 
             IElementContainer container = element as IElementContainer;
 
@@ -198,7 +113,145 @@ namespace OpenB.Web.Content
             }
 
             return element;
+
+        }
+
+        private static void BindValue(XmlNode currentNode, string nodeName, Type controlType, IElement element)
+        {
+            if (element == null)
+                throw new ArgumentNullException(nameof(element));
+            if (controlType == null)
+                throw new ArgumentNullException(nameof(controlType));
+            if (currentNode == null)
+                throw new ArgumentNullException(nameof(currentNode));
+
+            bool modelRetrieved = false;
+            object model = null;
+
+            foreach (XmlAttribute attribute in currentNode.Attributes)
+            {
+                // skip namespaced attributes, they belong to other implementations.
+                if (attribute.Name.Contains(":"))
+                    continue;
+
+                PropertyInfo property = controlType.GetProperties().SingleOrDefault(p => p.GetCustomAttributes(typeof(AttributeNameAttribute), false).Cast<AttributeNameAttribute>().Any(c => c.Name.Equals(attribute.Name)));
+
+                if (property != null)
+                {
+                    // Check if databinding is required.
+                    Regex regularExpression = new Regex(@"\[(?<bindingExpression>.*)\]");
+                    Match regularExprMatch = regularExpression.Match(attribute.Value);
+
+                    if (regularExprMatch.Success)
+                    {
+                        model = BindModelData(currentNode, modelRetrieved, model, attribute, regularExprMatch);
+                    }
+                    else
+                    {
+                        model = attribute.Value;
+                    }
+
+                    // Todo: Value strategies
+                    if (property.PropertyType == typeof(Boolean))
+                    {
+                        property.SetValue(element, System.Convert.ToBoolean(model));
+                    }
+                    else
+                    {
+                        property.SetValue(element, model);
+                    }
+
+                }
+                else
+                {
+                    throw new AttributeNotSupportedException($"Control {nodeName} is does not support attribute {attribute.Name}.");
+                }
+            }
+        }
+
+        private static object BindModelData(XmlNode currentNode, bool modelRetrieved, object model, XmlAttribute attribute, Match regularExprMatch)
+        {
+            object currentModel = null;
             
-        }          
+            // Binding requested
+            var matchGroup = regularExprMatch.Groups["bindingExpression"];
+            if (matchGroup.Success)
+            {
+                model = RetrieveModel(currentNode, modelRetrieved, model, attribute);
+
+                string[] requestedPropertyPath = matchGroup.Value.Split('.');
+
+                // Cascading get properties.
+                currentModel = model;
+
+                foreach (var subProperty in requestedPropertyPath)
+                {
+                    if (currentModel != null)
+                    {
+                        PropertyInfo currentProperty = currentModel.GetType().GetProperty(subProperty);
+
+                        if (currentProperty != null)
+                        {
+                            currentModel = currentProperty.GetValue(currentModel);
+                        }
+                        else
+                        {
+                            throw new Exception($"Cannot get the property {subProperty} for {requestedPropertyPath}.");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception($"Cannot get the property {subProperty} for {requestedPropertyPath}.");
+                    }
+                }
+            }
+
+            return currentModel;
+        }
+
+        private static object RetrieveModel(XmlNode currentNode, bool modelRetrieved, object model, XmlAttribute attribute)
+        {
+            if (!modelRetrieved)
+            {
+                string modelReference = GetModelReference(currentNode, attribute);
+
+                // TODO: Move to service.
+                var currentPath = AppDomain.CurrentDomain.BaseDirectory;
+                Assembly relatedAssembly = Assembly.LoadFile(Path.Combine(currentPath, "Modules", "ViewModels.dll"));
+
+                if (relatedAssembly != null)
+                {
+                    string fullClassName = relatedAssembly.GetName().Name + "." + modelReference;
+
+                    Type type = relatedAssembly.GetType(fullClassName);
+
+                    if (type != null)
+                    {
+                        model = Activator.CreateInstance(type);
+                    }
+
+                }
+            }
+
+            return model;
+        }
+
+        private static string GetModelReference(XmlNode currentNode, XmlAttribute attribute)
+        {
+            XmlAttribute modelAttribute = currentNode.Attributes["model"];
+            if (modelAttribute == null)
+            {
+                if (currentNode.ParentNode != null)
+                {
+                    return GetModelReference(currentNode.ParentNode, attribute);
+                }
+
+                throw new NotSupportedException($"No model defined on current node or no parent found for parsing property {attribute.Name}.");
+            }
+            string modelReference = modelAttribute.Value;
+            return modelReference;
+        }
     }
+
+   
 }

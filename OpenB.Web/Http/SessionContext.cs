@@ -40,7 +40,7 @@ namespace OpenB.Web.Http
          
             SessionIDManager sessionIdManager = new SessionIDManager();
             string sessionId = sessionIdManager.CreateSessionID(httpContext);
-                
+            
 
             return new SessionContext(httpContext, new SessionDataService(httpContext.Session));                                 
         }
@@ -57,7 +57,6 @@ namespace OpenB.Web.Http
 
         public SessionDataService(HttpSessionState sessionState)
         {          
-
             if (sessionState == null)
                 throw new ArgumentNullException(nameof(sessionState));
 
