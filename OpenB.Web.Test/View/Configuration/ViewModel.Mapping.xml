@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<map:ViewModelMapping xmlns:map="http://www.openb.org/mapping/viewmodel" model="OpenB.Web.Test.View.DemoModel">
+  <map:property name="Name" />
+  <map:property name="Description"/>
+  <map:property name="IsActive"/>
+</map:ViewModelMapping>

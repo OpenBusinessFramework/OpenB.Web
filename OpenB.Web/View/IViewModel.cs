@@ -1,13 +1,9 @@
 ﻿using OpenB.Core.ACL;
-using OpenB.Web.Content.Elements;
 
 namespace OpenB.Web.View
 {
-    
-
     public interface IViewModel
-    {
-        
+    {        
 
     }
 

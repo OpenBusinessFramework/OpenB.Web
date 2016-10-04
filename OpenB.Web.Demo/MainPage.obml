@@ -1,15 +1,13 @@
 ﻿<obml:page xmlns:obml="http://www.openb.org/schemas/obml/elements" title="[Title]" key="myFirstPage" model="HomePageView">
-  <obml:component model="HomePageView">
-    <obml:textbox value="[Title]" />
-    <obml:textbox value="[Title]" />
-    <obml:textbox value="[Title]" />
-    <obml:textbox value="[Title]" />
+  <obml:component>
     <obml:textbox value="[Title]" />    
+    <obml:checkbox value="[Active]" />
     <obml:text>
       <obml:heading size="2">Q and A</obml:heading>
       <obml:paragraph>
         <obml:textelement format="bold"></obml:textelement>
       </obml:paragraph>
     </obml:text>
+    <obml:button value="Submit"  />
   </obml:component>
 </obml:page>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ViewModelMapping"
+    targetNamespace="http://www.openb.org/mapping/viewmodel"
+    elementFormDefault="qualified"
+    xmlns="http://www.openb.org/mapping/viewmodel"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="ViewModelMapping">
+    <xs:complexType>     
+      <xs:sequence>
+        <xs:element name="property" minOccurs="1" maxOccurs="unbounded" type="propertyMapping" />
+      </xs:sequence>
+      <xs:attribute name="model" type="xs:string" />
+    </xs:complexType>    
+  </xs:element>
+  
+  <xs:complexType name="propertyMapping">
+    <xs:attribute name="name" type="xs:string" />
+  </xs:complexType>
+</xs:schema>

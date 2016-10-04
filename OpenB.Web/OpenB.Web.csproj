@@ -121,6 +121,7 @@
     <Compile Include="ResourceNotFoundError.cs" />
     <Compile Include="Security\IAuthenticationProvider.cs" />
     <Compile Include="View\DataBinder.cs" />
+    <Compile Include="View\IMethod.cs" />
     <Compile Include="View\IViewModel.cs" />
     <Compile Include="View\IViewModelCollection.cs" />
     <Compile Include="WebSolution.cs" />
