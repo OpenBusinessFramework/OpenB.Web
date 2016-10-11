@@ -1,5 +1,6 @@
 ﻿using OpenB.Web.Content.Elements;
 using OpenB.Web.Http;
+using OpenB.Web.View.Binding;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -150,16 +151,17 @@ namespace OpenB.Web.Content
                     {
                         model = attribute.Value;
                     }
+                                        
+                    if (model != null)
+                    {
+                        
 
-                    // Todo: Value strategies
-                    if (property.PropertyType == typeof(Boolean))
-                    {
-                        property.SetValue(element, System.Convert.ToBoolean(model));
+                        var value = ValueConverterFactory.GetInstance().ConvertTo(property.PropertyType, model);
+                        property.SetValue(element, value);
                     }
-                    else
-                    {
-                        property.SetValue(element, model);
-                    }
+                       
+                    
+                   
 
                 }
                 else
@@ -217,7 +219,7 @@ namespace OpenB.Web.Content
 
                 // TODO: Move to service.
                 var currentPath = AppDomain.CurrentDomain.BaseDirectory;
-                Assembly relatedAssembly = Assembly.LoadFile(Path.Combine(currentPath, "Modules", "ViewModels.dll"));
+                Assembly relatedAssembly = Assembly.LoadFrom(Path.Combine(currentPath, "bin", "ViewModels.dll"));
 
                 if (relatedAssembly != null)
                 {

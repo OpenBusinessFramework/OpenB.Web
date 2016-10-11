@@ -2,33 +2,73 @@
 using System.IO;
 using System.Reflection;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace OpenB.Web.Http
 {
     internal class ConfigurationFactory
     {
-        internal static Configuration GetConfiguration()
+        private static ConfigurationFactory instance;
+        private static ApplicationConfiguration applicationConfiguration;
+
+        private string configurationFilePath;
+
+        private ConfigurationFactory(string filePath)
         {
-            string configurationFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "WebSolution.Config.xml");
+            if (filePath == null)
+                throw new ArgumentNullException(nameof(filePath));
 
-            XmlDocument configurationDocument = new XmlDocument();
-            configurationDocument.Load(configurationFilePath);
+            configurationFilePath = filePath;
+        }
 
-            
-
-            Type configurationType = typeof(Configuration);
-            Configuration configuration = new Configuration();
-
-            foreach(PropertyInfo configurationProperty in configurationType.GetProperties(BindingFlags.Public))
+        internal ApplicationConfiguration ApplicationConfiguration
+        {
+            get
             {
-                var configurationNode = configurationDocument.SelectSingleNode("Configuration/" + configurationProperty.Name);
-                if (configurationNode != null)
+                if (applicationConfiguration == null)
                 {
-                    configurationProperty.SetValue(configuration, configurationNode.Value);
-                                    }
+                 
+
+                    XmlDocument configurationDocument = new XmlDocument();
+                    configurationDocument.Load(configurationFilePath);
+
+                    Type configurationType = typeof(ApplicationConfiguration);
+
+                    XmlSerializer serializer = new XmlSerializer(typeof(ApplicationConfiguration));
+
+                    StreamReader reader = new StreamReader(configurationFilePath);
+                    applicationConfiguration = (ApplicationConfiguration)serializer.Deserialize(reader);
+                    reader.Close();
+
+                    applicationConfiguration.ConfigurationPath = new FileInfo(configurationFilePath).DirectoryName;
+                }
+                return applicationConfiguration;
+            }
+          
+        }
+
+        private void AssignValue(object currentObject, PropertyInfo relatedProperty, XmlNode xmlNode)
+        {
+            if (xmlNode == null)
+                throw new ArgumentNullException(nameof(xmlNode));
+            if (relatedProperty == null)
+                throw new ArgumentNullException(nameof(relatedProperty));
+          
+            if (xmlNode.ChildNodes.Count > 0)
+            {
+                
+            }
+        }
+
+        internal static ConfigurationFactory GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new ConfigurationFactory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "WebSolution.Config.xml"));
+               
             }
 
-            return configuration;
+            return instance;
         }
     }
 }

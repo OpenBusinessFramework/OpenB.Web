@@ -11,7 +11,7 @@ namespace OpenB.Web.Http
     {
         public IHttpHandler GetHandler(HttpContext context, string requestType, string url, string pathTranslated)
         {
-            Configuration configuration = ConfigurationFactory.GetConfiguration();
+            ApplicationConfiguration configuration = ConfigurationFactory.GetInstance().ApplicationConfiguration;
 
             var contextRequestType = context.Request.RequestType.ToLower();
 
@@ -29,6 +29,11 @@ namespace OpenB.Web.Http
         public void ReleaseHandler(IHttpHandler handler)
         {
            
-        }        
+        }   
+        
+        public HttpHandlerFactory()
+        {
+
+        }     
     }
 }

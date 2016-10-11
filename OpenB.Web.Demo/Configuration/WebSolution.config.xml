@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Configuration>  
+<ApplicationConfiguration>  
     <WebSolution>
       <Name>OpenB Demo</Name>
       <WebPackage>OpenB.WebPackages.BootStrap</WebPackage>
-      <ModelNamespace>OpenB.Web.Demo.Models</ModelNamespace>
+      <ModelPackage>MemMan</ModelPackage>      
     </WebSolution>
-</Configuration>
+</ApplicationConfiguration>

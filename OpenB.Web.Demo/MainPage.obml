@@ -1,7 +1,7 @@
-﻿<obml:page xmlns:obml="http://www.openb.org/schemas/obml/elements" title="[Title]" key="myFirstPage" model="HomePageView">
+﻿<obml:page xmlns:obml="http://www.openb.org/schemas/obml/elements" title="[IsActive]" key="myFirstPage" model="PersonViewModel">
   <obml:component>
-    <obml:textbox value="[Title]" />    
-    <obml:checkbox value="[Active]" />
+    <obml:textbox value="[Name]" />    
+    <obml:checkbox value="[IsActive]" />
     <obml:text>
       <obml:heading size="2">Q and A</obml:heading>
       <obml:paragraph>

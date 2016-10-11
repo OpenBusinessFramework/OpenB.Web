@@ -85,9 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RenderServiceTest.cs" />
-    <Compile Include="View\IClassStringBuilder.cs" />
-    <Compile Include="View\MappingConfiguration.cs" />
-    <Compile Include="View\PropertyMapping.cs" />
+    <Compile Include="View\Binding\ValueConverterTest.cs" />
     <Compile Include="View\ViewModelServiceTest.cs" />
     <Compile Include="WebSolutionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

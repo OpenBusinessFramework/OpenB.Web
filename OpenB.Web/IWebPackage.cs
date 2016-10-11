@@ -6,9 +6,7 @@ namespace OpenB.Web
     public interface IWebPackage
     {
         IWebControlTemplateBinder ControlTemplateBinder { get; }
-        IWebRequestFactory WebRequestFactory { get; }    
-        
-      
+        IWebRequestFactory WebRequestFactory { get; }        
 
     }
 }

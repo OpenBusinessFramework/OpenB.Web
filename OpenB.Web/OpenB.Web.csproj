@@ -63,7 +63,9 @@
   <ItemGroup>
     <Compile Include="BaseWebPackage.cs" />
     <Compile Include="CascadingStyleSheetReference.cs" />
-    <Compile Include="Configuration.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\ConfigurationException.cs" />
+    <Compile Include="Configuration\ConfigurationManager.cs" />
     <Compile Include="Content\AttributeNotSupportedException.cs" />
     <Compile Include="Content\ControlNotSupportedError.cs" />
     <Compile Include="Content\ControlNotSupportedException.cs" />
@@ -111,21 +113,31 @@
     <Compile Include="Http\WebRequestError.cs" />
     <Compile Include="Http\WebRequestFactory.cs" />
     <Compile Include="Http\WebRequestInput.cs" />
+    <Compile Include="Http\WebRequestModule.cs" />
     <Compile Include="Http\WebRequestOutput.cs" />
     <Compile Include="IControlTemplateBinder.cs" />
     <Compile Include="IWebControlTemplate.cs" />
     <Compile Include="IWebPackage.cs" />
-    <Compile Include="IWebSolutionConfiguration.cs" />
     <Compile Include="JavascriptReference.cs" />
     <Compile Include="RenderService.cs" />
     <Compile Include="ResourceNotFoundError.cs" />
     <Compile Include="Security\IAuthenticationProvider.cs" />
+    <Compile Include="Util\CSharpClassBuilder.cs" />
+    <Compile Include="Util\IClassStringBuilder.cs" />
+    <Compile Include="Util\Reflection\Reflector.cs" />
+    <Compile Include="View\Binding\BooleanConverter.cs" />
+    <Compile Include="View\Binding\ValueConverterFactory.cs" />
     <Compile Include="View\DataBinder.cs" />
     <Compile Include="View\IMethod.cs" />
     <Compile Include="View\IViewModel.cs" />
     <Compile Include="View\IViewModelCollection.cs" />
+    <Compile Include="View\MappingConfiguration.cs" />
+    <Compile Include="View\PropertyMapping.cs" />
+    <Compile Include="View\ViewModelGenerator.cs" />
+    <Compile Include="WebPackageConfiguration.cs" />
     <Compile Include="WebSolution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebSolutionConfiguration.cs" />
     <Compile Include="WebSolutionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
