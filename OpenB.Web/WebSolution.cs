@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 
 namespace OpenB.Web
 {
@@ -6,20 +8,40 @@ namespace OpenB.Web
     {
         public string Name { get; private set; }
         public IWebPackage WebPackage { get; private set; }
+        public WebSolutionConfiguration Configuration { get; private set; }
+        public IUrlMapper UrlMapper { get; internal set; }
 
-        public WebSolution(string name, IWebPackage webPackage)
+        readonly WebSolutionConfiguration configuration;
+
+        public WebSolution(WebSolutionConfiguration configuration)
         {
-            if (webPackage == null)
+            if (configuration == null)
+                throw new ArgumentNullException(nameof(configuration));            
+
+            this.configuration = configuration;
+            WebPackage = GetWebPackage(configuration.WebPackage);
+            UrlMapper = GetUrlMapper(configuration.DefaultLandingPage);
+
+            Name = configuration.Name;
+        }
+
+        private IUrlMapper GetUrlMapper(string defaultUrl)
+        {
+            return new UrlMapper(defaultUrl);
+        }
+
+        private IWebPackage GetWebPackage(string packageName)
+        {
+            Assembly packageAssembly = Assembly.Load(packageName);
+
+            Type webPackageType = packageAssembly.GetExportedTypes().Where(t => typeof(IWebPackage).IsAssignableFrom(t)).SingleOrDefault();
+
+            if (webPackageType != null)
             {
-                throw new ArgumentNullException(nameof(webPackage));
-            }
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new NotSupportedException("A WebSolution should have a name.");
+               return (IWebPackage)Activator.CreateInstance(webPackageType);
             }
 
-            WebPackage = webPackage;
-            Name = name;
-        }        
+            throw new NotSupportedException($"Cannot load webpackage with name {packageName}.");
+        }
     }
 }

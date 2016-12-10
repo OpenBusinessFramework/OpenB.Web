@@ -117,6 +117,13 @@ namespace OpenB.Web.Content
 
         }
 
+        /// <summary>
+        /// To do: Move to binder.
+        /// </summary>
+        /// <param name="currentNode"></param>
+        /// <param name="nodeName"></param>
+        /// <param name="controlType"></param>
+        /// <param name="element"></param>
         private static void BindValue(XmlNode currentNode, string nodeName, Type controlType, IElement element)
         {
             if (element == null)
@@ -154,15 +161,9 @@ namespace OpenB.Web.Content
                                         
                     if (model != null)
                     {
-                        
-
                         var value = ValueConverterFactory.GetInstance().ConvertTo(property.PropertyType, model);
                         property.SetValue(element, value);
                     }
-                       
-                    
-                   
-
                 }
                 else
                 {
@@ -231,7 +232,6 @@ namespace OpenB.Web.Content
                     {
                         model = Activator.CreateInstance(type);
                     }
-
                 }
             }
 

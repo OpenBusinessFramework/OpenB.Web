@@ -24,29 +24,17 @@ namespace OpenB.Web
             DirectoryInfo directoryInfo = new DirectoryInfo(modulesFolder);
 
             IList<Assembly> assemblies = new List<Assembly>();
-            foreach(FileInfo fileInfo in directoryInfo.GetFiles("*.dll"))
-            { 
+            foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.dll"))
+            {
                 assemblies.Add(Assembly.LoadFile(fileInfo.FullName));
             }
 
-            var packageAssemblyRef =  xmlDocument.SelectSingleNode("/ApplicationConfiguration/WebSolution/WebPackage").InnerText;
-            var solutionName = xmlDocument.SelectSingleNode("/ApplicationConfiguration/WebSolution/Name").InnerText;
+            WebSolutionConfiguration solutionConfiguration = WebSolutionConfiguration.FromXml(xmlDocument.SelectSingleNode("/ApplicationConfiguration/WebSolution"));
+            
+            WebSolution webSolution = new WebSolution(solutionConfiguration);
 
-            Assembly packageAssembly = Assembly.Load(packageAssemblyRef);
-
-            Type webPackageType = packageAssembly.GetExportedTypes().Where(t => typeof(IWebPackage).IsAssignableFrom(t)).SingleOrDefault();
-
-            if (webPackageType != null)
-            {
-               IWebPackage webPackage = (IWebPackage)  Activator.CreateInstance(webPackageType);
-                WebSolution webSolution = new WebSolution(solutionName,webPackage);
-
-                return webSolution;
-            }       
-
-
-            throw new NotSupportedException("No webpackages found for websolution.");
-
+            return webSolution;
         }
     }
 }
+

@@ -17,7 +17,10 @@ namespace OpenB.Web.Test
             MockRepository mockRepository = new MockRepository();
             IWebPackage webPackage = mockRepository.Stub<IWebPackage>();
 
-            WebSolution webSolution = new WebSolution("MyFirstWebSolution", webPackage);
+            var configuration = mockRepository.Stub<WebSolutionConfiguration>();
+                  
+
+            WebSolution webSolution = new WebSolution(configuration);
 
             Assert.DoesNotThrow(() => new RenderService(webSolution));          
         }

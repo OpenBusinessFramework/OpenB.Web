@@ -11,6 +11,7 @@ namespace OpenB.WebPackages.BootStrap
             new JavascriptReference("angular.min.js"),
             new JavascriptReference("bootstrap.min.js"),
             new JavascriptReference("OpenB.Controls.js"),
+            new JavascriptReference("jquery-ui.min.js"),
             new CascadingStyleSheetReference("bootstrap-theme.min.css"),
             new CascadingStyleSheetReference("bootstrap.min.css"),  }))
         {

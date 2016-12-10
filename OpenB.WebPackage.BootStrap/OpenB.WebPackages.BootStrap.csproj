@@ -52,6 +52,7 @@
     <Compile Include="Templates\CheckboxTemplate.cs" />
     <Compile Include="Templates\ComboboxTemplate.cs" />
     <Compile Include="Templates\ComponentTemplate.cs" />
+    <Compile Include="Templates\DatepickerTemplate.cs" />
     <Compile Include="Templates\IAngularController.cs" />
     <Compile Include="Templates\LabelTemplate.cs" />
     <Compile Include="Templates\PageTemplate.cs" />
@@ -96,6 +97,12 @@
     <Content Include="Content\js\angular-animate.js" />
     <Content Include="Content\js\jquery-1.9.1.intellisense.js" />
     <Content Include="Content\js\jquery-1.9.1.js" />
+    <EmbeddedResource Include="Content\js\jquery-ui.css" />
+    <EmbeddedResource Include="Content\js\jquery-ui.js" />
+    <EmbeddedResource Include="Content\js\jquery-ui.min.css" />
+    <EmbeddedResource Include="Content\js\jquery-ui.min.js" />
+    <EmbeddedResource Include="Content\js\jquery-ui.structure.css" />
+    <EmbeddedResource Include="Content\js\jquery-ui.structure.min.css" />
     <EmbeddedResource Include="Content\js\jquery-1.9.1.min.js" />
     <EmbeddedResource Include="Content\js\OpenB.Controls.js" />
     <EmbeddedResource Include="Content\js\angular-animate.min.js" />

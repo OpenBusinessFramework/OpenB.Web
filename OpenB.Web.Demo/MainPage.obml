@@ -2,6 +2,7 @@
   <obml:component>
     <obml:textbox value="[Name]" />    
     <obml:checkbox value="[IsActive]" />
+    <obml:datebox value="22-12-1980" />
     <obml:text>
       <obml:heading size="2">Q and A</obml:heading>
       <obml:paragraph>

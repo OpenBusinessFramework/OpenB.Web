@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<map:ViewModelMapping xmlns:map="http://www.openb.org/mapping/viewmodel" model="MemMan.Person">
+  <map:property name="Name" />
+  <map:property name="Description" />
+  <map:property name="IsActive" />
+  <map:property name="DateOfBirth"/>
+  <map:property name="Surname"/>
+  <map:property name="Gender"/>
+</map:ViewModelMapping>

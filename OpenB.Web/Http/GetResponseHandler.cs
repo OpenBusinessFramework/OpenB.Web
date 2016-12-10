@@ -39,8 +39,10 @@ namespace OpenB.Web.Http
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
 
+            
+
             var extension = context.Request.CurrentExecutionFilePathExtension;
-            var filename = context.Request.AppRelativeCurrentExecutionFilePath.Remove(0,1);
+            var filename = WebSolution.UrlMapper.Map(context.Request.AppRelativeCurrentExecutionFilePath);
 
             WebRequestInput webRequestInput = new WebRequestInput()
             {

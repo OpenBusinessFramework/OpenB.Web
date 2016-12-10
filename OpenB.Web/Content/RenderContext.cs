@@ -23,6 +23,7 @@ namespace OpenB.Web.Content
             ApplicationHost = applicationHost;
 
             ModelCache = new Dictionary<string, object>();
+            DataBindingService = new DataBindingService();
         }
 
        public string ApplicationPath { get; }
@@ -31,5 +32,6 @@ namespace OpenB.Web.Content
        public Uri RequestUri { get; private set; }
        public IDictionary<string, object> ModelCache { get; private set; }
        public string ApplicationHost { get; private set; }
+       public DataBindingService DataBindingService { get; private set; }
     }
 }

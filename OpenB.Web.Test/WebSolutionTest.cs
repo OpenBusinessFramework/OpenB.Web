@@ -17,14 +17,20 @@ namespace OpenB.Web.Test
             MockRepository mockRepository = new MockRepository();
             IWebPackage webPackage = mockRepository.Stub<IWebPackage>();
 
-            Assert.Throws<NotSupportedException>(() => new WebSolution("", webPackage));
+            var configuration = mockRepository.Stub<WebSolutionConfiguration>();
+
+            Assert.Throws<NotSupportedException>(() => new WebSolution(configuration));
         }
 
         [Test]
         public void CreateNewWebSolution_NoWebPackage_Throws_Exception()
-        {  
+        {
+            MockRepository mockRepository = new MockRepository();
+            IWebPackage webPackage = mockRepository.Stub<IWebPackage>();
 
-            Assert.Throws<ArgumentNullException>(() => new WebSolution("My WebSolution", null));
+            var configuration = mockRepository.Stub<WebSolutionConfiguration>();
+
+            Assert.Throws<ArgumentNullException>(() => new WebSolution(configuration));
         }
     }
 }

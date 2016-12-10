@@ -8,16 +8,27 @@ namespace OpenB.Web.Http
     {
         private IList<IWebRequestFileHandler> fileHandlers;
 
-        public WebRequestFactory(IList<IWebRequestFileHandler> fileHandlers)
+        public WebRequestFactoryConfiguration Configuration { get; private set; }
+
+        public WebRequestFactory(IList<IWebRequestFileHandler> fileHandlers) : this(WebRequestFactoryConfiguration.GetInstance(), fileHandlers)
         {
+
+        }
+
+        public WebRequestFactory(WebRequestFactoryConfiguration configuration, IList<IWebRequestFileHandler> fileHandlers)
+        {
+            Configuration = configuration;
+            if (configuration == null)
+                throw new ArgumentNullException(nameof(configuration));
             this.fileHandlers = fileHandlers;
             if (fileHandlers == null)
                 throw new ArgumentNullException(nameof(fileHandlers));
         }
 
         public IWebRequestFileHandler GetFileHandlerForRequest(string request)
-        {
-            foreach(var fileHandler in fileHandlers)
+        {          
+
+            foreach (var fileHandler in fileHandlers)
             {
                 var regularExpression = new Regex(fileHandler.RequestPattern);
                 var match = regularExpression.Match(request);
@@ -30,5 +41,14 @@ namespace OpenB.Web.Http
 
             throw new NotSupportedException($"Request {request} is not supported.");
         }
+    }
+
+    public class WebRequestFactoryConfiguration
+    {
+        public static WebRequestFactoryConfiguration GetInstance()
+        {
+            return new WebRequestFactoryConfiguration { DefaultLandingPage = "/MainPage.obml" };
+        }
+        public string DefaultLandingPage { get; set; }
     }
 }
